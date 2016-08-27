@@ -9,31 +9,26 @@
 
 <body ng-app="todoApp">
 <div class="container" ng-controller="TodoController">
-
-	<div class="app-body">
+	<section class="app-body">
     <form ng-submit="addTodo()" class="todo-form">
-			<input type="text" ng-model="todoText" class="text-field" placeholder="" autofocus=""/>
+			<input type="text" ng-model="todoText" class="text-field" placeholder="" autofocus="" required/>
 			<input type="submit" class="add-btn" value="Добавить запись"/>
 		</form>
 
 		<ul class="todo-list">
-			<li ng-repeat="todo in todos | filter: search " class="done-{{todo.done}} ng-scope" data-filter="done-{{todo.done}}">
+        <input type="text" class="search" ng-model="search" placeholder="Поиск по словам...">
+        <a href="#" class="filter all" data-attr="all">Все</a>
+        <a href="#" class="filter active" data-attr="done-false">Активные</a>
+        <a href="#" class="filter done" data-attr="done-true">Завершенные</a>
+
+			<li ng-repeat="todo in todos | filter: search track by $index" class="done-{{todo.done}}" data-attr="done-{{todo.done}}">
 				<input type="checkbox" class="checkbox" id="{{$index}}" ng-model="todo.done">
         <label for="{{$index}}"></label>
 				<span>{{todo.text}}</span>
         <span class="delete" ng-click="remove()"></span>
 			</li>
 		</ul>
-	</div>
-
-<div class="app-filter">
-  <div class="title">Фильтр</div>
-  <a href="#" class="all" >Все</a>
-  <a href="#" class="active" data-filter="done-false">Активные</a>
-  <a href="#" class="done" data-filter="done-true">Завершенные</a>
-  <input type="text" class="search" ng-model="search" placeholder="Поиск по словам...">
-</div>
-
+	</section>
 
 </div>
 
